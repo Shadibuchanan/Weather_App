@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  Modal,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -31,6 +33,7 @@ export default function HomeScreen() {
   const [isCelsius, setIsCelsius] = useState(true); // Temperature unit state
   const [isKilometers, setIsKilometers] = useState(true); // Distance unit state
   const [showDropdown, setShowDropdown] = useState(false); // Dropdown visibility state
+  const [modalVisible, setModalVisible] = useState(false); // Modal visibility state
 
   const convertCelsiusToFahrenheit = (celsius) => {
     return Math.round((celsius * 9) / 5 + 32); // Round to the nearest whole number
@@ -326,6 +329,98 @@ export default function HomeScreen() {
               </ScrollView>
             </View>
           </View>
+           {/* NAME AND INFO BUTTON SECTION */}
+           <View className="flex items-center mb-8">
+            <Text className="text-white text-lg font-bold">Shadi Buchanan</Text>
+            <TouchableOpacity
+              onPress={() => setModalVisible(true)}
+              className="mt-4 px-4 py-2 rounded-full"
+              style={{ backgroundColor: theme.bgWhite(0.3) }}
+            >
+              <Text className="text-white text-lg">Info</Text>
+            </TouchableOpacity>
+          </View>
+          {/* MODAL */}
+          <Modal
+  animationType="slide"
+  transparent={true}
+  visible={modalVisible}
+  onRequestClose={() => {
+    console.log('Modal has been closed.');
+    setModalVisible(!modalVisible);
+  }}
+>
+  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.7)'}}>
+    <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+      <View style={{flex: 1, width: '100%'}} />
+    </TouchableWithoutFeedback>
+    <View style={{position: 'absolute', backgroundColor: 'white', padding: 24, borderRadius: 10, width: '90%', maxHeight: '80%'}}>
+      <ScrollView>
+        <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 16}}>
+          PM Accelerator
+        </Text>
+        <Text style={{fontSize: 14, color: '#444', marginBottom: 8}}>
+          The Product Manager Accelerator Program is designed to
+                        support PM professionals through every stage of their
+                        career. From students looking for entry-level jobs to
+                        Directors looking to take on a leadership role, our
+                        program has helped over hundreds of students fulfill
+                        their career aspirations.
+                      </Text>
+                      <Text className="text-gray-800 text-base mb-2">
+                        Our Product Manager Accelerator community is ambitious
+                        and committed. Through our program, they have learned,
+                        honed, and developed new PM and leadership skills,
+                        giving them a strong foundation for their future
+                        endeavors.
+                      </Text>
+                      <Text className="text-gray-800 text-base mb-2">
+                        Learn product management for free today on our YouTube
+                        channel:
+                        <Text style={{ color: "blue" }}>
+                          {" "}
+                          https://www.youtube.com/c/drnancyli?sub_confirmation=1
+                        </Text>
+                      </Text>
+                      <Text className="text-gray-800 text-base mb-2">
+                        Interested in PM Accelerator Pro?
+                        {"\n"}Step 1️⃣: Attend the Product Masterclass to learn
+                        more about the program details, price, different
+                        packages, and stay until the end to get a FREE AI
+                        Course.
+                      </Text>
+                      <Text className="text-gray-800 text-base mb-2">
+                        Learn how to create a killer product portfolio in two
+                        weeks that will help you land any PM job (traditional or
+                        AI) even if you were laid off or have zero PM
+                        experience:
+                        <Text style={{ color: "blue" }}>
+                          {" "}
+                          https://www.drnancyli.com/masterclass
+                        </Text>
+                      </Text>
+                      <Text className="text-gray-800 text-base mb-2">
+                        Step 2️⃣: Reserve your early bird ticket and submit an
+                        application to talk to our Head of Admission.
+                      </Text>
+                      <Text className="text-gray-800 text-base mb-2">
+                        Step 3️⃣: Successful applicants join our PMA Pro
+                        community to receive customized coaching!
+                  
+          </Text>
+        {/* More text elements */}
+      </ScrollView>
+      <TouchableOpacity
+        onPress={() => setModalVisible(false)}
+        style={{marginTop: 16, backgroundColor: '#007bff', borderRadius: 50, paddingHorizontal: 32, paddingVertical: 8}}
+      >
+        <Text style={{textAlign: 'center', color: 'white'}}>Close</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</Modal>
+
+
         </SafeAreaView>
       )}
     </View>
