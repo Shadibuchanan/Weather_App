@@ -2,7 +2,7 @@
 
 This Weather App is a mobile application built using React Native and Expo. It leverages the WeatherAPI to provide users with current weather conditions, a 7-day forecast, and other useful information like UV index and wind speed. The app is designed to be user-friendly, with a clean interface and settings that allow users to toggle between Celsius/Fahrenheit and Kilometers/Miles.
 
-![App Screenshot](./src/assets/screenshot.png)
+![App Screenshot](./src/assets/screenshot.png) 
 
 ## Features
 
