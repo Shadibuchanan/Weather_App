@@ -18,7 +18,7 @@ import { Entypo } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { debounce } from "lodash";
 import { fetchLocations, fetchWeatherForecast } from "../api/weather";
-import { getWeatherImage } from "../constants";  // Assuming you've implemented getWeatherImage as described earlier
+import { getWeatherImage } from "../constants"; // Assuming you updated getWeatherImage in this file
 import * as Progress from "react-native-progress";
 import * as Location from "expo-location"; // Import expo-location
 import { MaterialIcons } from '@expo/vector-icons'; // Import Material Icons for the settings icon
@@ -99,7 +99,7 @@ export default function HomeScreen() {
 
   // Fallback to a default city if location is not available
   const fetchWeatherFallback = () => {
-    fetchWeatherForecast({ cityName: "Riyadh", days: "7" }).then((data) => {
+    fetchWeatherForecast({ cityName: "Atlanta", days: "7" }).then((data) => {
       setWeather(data);
       setLoading(false);
     });
@@ -224,7 +224,7 @@ export default function HomeScreen() {
             ) : null}
           </View>
 
-          {/* FORCAST SECTION */}
+          {/* FORECAST SECTION */}
           <View className="flex-1 flex justify-around mx-4 mb-2">
             <View className="flex-row items-center justify-center px-8">
               <Text className="text-white text-3xl font-bold items-center justify-center">
@@ -234,6 +234,7 @@ export default function HomeScreen() {
                 {" " + location?.country}
               </Text>
             </View>
+
             {/* IMAGE VIEW */}
             <View className="justify-center flex-row">
               <Image
@@ -241,6 +242,7 @@ export default function HomeScreen() {
                 className="w-52 h-52"
               />
             </View>
+
             {/* TEMPERATURE DISPLAY */}
             <View className="flex-row justify-center items-center">
               <Text className="text-center text-6xl text-white font-bold">
@@ -248,13 +250,15 @@ export default function HomeScreen() {
                   ? `${Math.round(current?.temp_c)}`
                   : `${Math.round(convertCelsiusToFahrenheit(current?.temp_c))}`}
               </Text>
-              <Text className="text-white  text-3xl ml-2">
+              <Text className="text-white text-3xl ml-2">
                 {isCelsius ? "°C" : "°F"}
               </Text>
             </View>
+
             <Text className="text-center text-xl text-white tracking-widest">
               {current?.condition?.text}
             </Text>
+
             {/* WEATHER CONDITIONS */}
             <View>
               <View className="flex-row space-x-6 items-center ">
@@ -280,27 +284,30 @@ export default function HomeScreen() {
                 </View>
               </View>
             </View>
-            {/* NEXT DAYS FORCAST */}
+
+            {/* NEXT DAYS FORECAST */}
             <View className="flex-row items-center ml-2 ">
               <FontAwesome name="calendar" size={30} color="white" />
               <Text className="text-white font-semibold ml-3 text-lg">
                 Daily Forecast
               </Text>
             </View>
+
             <View>
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {weather?.forecast?.forecastday?.map((days, index) => {
-                  let date = new Date(days.date);
+                {weather?.forecast?.forecastday?.map((day, index) => {
+                  let date = new Date(day.date);
                   let options = { weekday: "long" };
                   let dayName = date.toLocaleDateString("en-US", options);
+
                   return (
                     <View
                       key={index}
-                      className=" w-32 rounded-3xl py-4 px-5 ml-3"
+                      className="w-32 rounded-3xl py-4 px-5 ml-3"
                       style={{ backgroundColor: theme.bgWhite(0.3) }}
                     >
                       <Image
-                        source={getWeatherImage(days?.day?.condition?.text, days?.day?.is_day)}
+                        source={{ uri: `https:${day?.day?.condition?.icon}` }}  // Using API's icon URL
                         className="w-12 h-12 ml-5"
                       />
                       <Text className="text-slate-300 font-semibold text-center py-1">
@@ -308,9 +315,9 @@ export default function HomeScreen() {
                       </Text>
                       <Text className="text-white font-semibold text-lg text-center">
                         {isCelsius
-                          ? `${Math.round(days?.day?.avgtemp_c)}°C`
+                          ? `${Math.round(day?.day?.avgtemp_c)}°C`
                           : `${Math.round(
-                              convertCelsiusToFahrenheit(days?.day?.avgtemp_c)
+                              convertCelsiusToFahrenheit(day?.day?.avgtemp_c)
                             )}°F`}
                       </Text>
                     </View>

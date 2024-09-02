@@ -5,6 +5,9 @@ export const weatherImages = {
     "Partly cloudy": require("../assets/images/partlycloudy.png"),
     "Moderate rain": require("../assets/images/moderaterain.png"),
     "Patchy rain possible": require("../assets/images/moderaterain.png"),
+    "Patchy rain nearby": require("../assets/images/moderaterain.png"),
+    "Light drizzle": require("../assets/images/moderaterain.png"),
+    "Light rain shower": require("../assets/images/moderaterain.png"),
     "Sunny": require("../assets/images/sun.png"),
     "Clear": require("../assets/images/sun.png"),
     "Overcast": require("../assets/images/cloud.png"),
@@ -16,13 +19,16 @@ export const weatherImages = {
     "Moderate or heavy freezing rain": require("../assets/images/heavyrain.png"),
     "Moderate or heavy rain shower": require("../assets/images/heavyrain.png"),
     "Moderate or heavy rain with thunder": require("../assets/images/heavyrain.png"),
-    'Mist': require("../assets/images/mist.png"),
-    'other': require("../assets/images/moderaterain.png"),
+    "Mist": require("../assets/images/mist.png"),
+    "other": require("../assets/images/moderaterain.png"),
   },
   night: {
     "Partly cloudy": require("../assets/images/night_partlycloudy.png"),
     "Moderate rain": require("../assets/images/moderaterain.png"),
     "Patchy rain possible": require("../assets/images/moderaterain.png"),
+    "Patchy rain nearby": require("../assets/images/moderaterain.png"),
+    "Light drizzle": require("../assets/images/moderaterain.png"),
+    "Light rain shower": require("../assets/images/moderaterain.png"),
     "Clear": require("../assets/images/night_clear.png"),
     "Overcast": require("../assets/images/cloud.png"),
     "Cloudy": require("../assets/images/cloud.png"),
@@ -33,12 +39,19 @@ export const weatherImages = {
     "Moderate or heavy freezing rain": require("../assets/images/heavyrain.png"),
     "Moderate or heavy rain shower": require("../assets/images/heavyrain.png"),
     "Moderate or heavy rain with thunder": require("../assets/images/heavyrain.png"),
-    'Mist': require("../assets/images/mist.png"),
-    'other': require("../assets/images/moderaterain.png"),
+    "Mist": require("../assets/images/mist.png"),
+    "Cloudy": require("../assets/images/cloud.png"),
+    "other": require("../assets/images/moderaterain.png"),
   }
 };
 
+// Function to get the weather image for the current day using local assets
 export const getWeatherImage = (conditionText, isDay) => {
   const timeOfDay = isDay ? 'day' : 'night';
   return weatherImages[timeOfDay][conditionText] || weatherImages[timeOfDay]['other'];
+};
+
+// Function to get the icon URL for the next days' forecast from the API
+export const getWeatherIcon = (iconUrl) => {
+  return { uri: `https:${iconUrl}` };
 };
